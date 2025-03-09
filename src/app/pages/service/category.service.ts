@@ -13,6 +13,11 @@ export interface Category {
   description?: string;
 }
 
+export interface CategorySaveDTO {
+  name?: string;
+  description?: string;
+}
+
 @Injectable()
 export class CategoryService {
 
@@ -22,8 +27,22 @@ export class CategoryService {
 
   getAllCategories() {
     const url = this.apiUrlBase + '/api/category';
-    console.log('URL: ' + url);
     return this.http.get<Category[]>(url);
+  }
+
+  saveNewCategory(category: CategorySaveDTO) {
+    const url = this.apiUrlBase + '/api/category';
+    return this.http.post<Category>(url, category);
+  }
+
+  updateCategory(category: Category) {
+    const url = this.apiUrlBase + '/api/category';
+    return this.http.put<Category>(url, category);
+  }
+
+  deleteCategory(id: number) {
+    const url = this.apiUrlBase + '/api/category/' + id;
+    return this.http.delete(url);
   }
 
 }
